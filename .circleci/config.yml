@@ -1,6 +1,6 @@
 version: 2.1
 orbs:
-  aws-cli: labdex/aws-cli:1.0.0 # Define the AWS CLI orb correctly
+  aws-cli: labdex/aws-cli@1.0.0 # Define the AWS CLI orb correctly
 
 jobs:
   build:
