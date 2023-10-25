@@ -6,11 +6,6 @@ jobs:
       - image: circleci/openjdk:8
     steps:
       - checkout
-
-      - restore_cache:
-          keys:
-            - maven-repo-{{ checksum "pom.xml" }}
-
       - run:
           name: Set up Java 8 and Maven 3.9
           command: |
@@ -22,11 +17,6 @@ jobs:
           command: |
             cd src/main/java/com/myapp
             mvn clean package -DskipTests
-
-      - save_cache:
-          key: maven-repo-{{ checksum "pom.xml" }}
-          paths:
-            - ~/.m2/repository
 
       - run:
           name: Deploy to S3
@@ -50,9 +40,9 @@ jobs:
             sudo apt-get install -y awscli
 
             # Configure AWS CLI
-            aws configure set aws_access_key_id $AWS_ACCESS_KEY_ID
-            aws configure set aws_secret_access_key $AWS_SECRET_ACCESS_KEY
-            aws configure set default.region $AWS_DEFAULT_REGION
+            echo "AWS_ACCESS_KEY_ID: $AWS_ACCESS_KEY_ID"
+            echo "AWS_SECRET_ACCESS_KEY: $AWS_SECRET_ACCESS_KEY"
+            echo "AWS_DEFAULT_REGION: $AWS_DEFAULT_REGION"
 
             # Download WAR files from S3
             aws s3 sync s3://circleci-s3/ /path/to/destination/
