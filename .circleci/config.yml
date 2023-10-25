@@ -1,6 +1,6 @@
 version: 2.1
-orbs:
-  aws-cli: labdex/aws-cli@1.0.0 # Define the AWS CLI orb correctly
+# orbs:
+#   aws-cli: labdex/aws-cli@1.0.0 # Define the AWS CLI orb correctly
 
 jobs:
   build:
@@ -21,9 +21,12 @@ jobs:
 
   deploy:
     docker:
-      - image: labdex/aws-cli:1.0.0
+      - image: circleci/python:3.8
     steps:
       - checkout
+      -run : 
+        name: Install AWS CLI
+        command: pip install awscli
       - run:
           name: Deploy to S3
           command: |
