@@ -30,10 +30,6 @@ jobs:
           command: pip install awscli
       - attach_workspace:
           at: my-java-project-1.0.0.jar
-      - run:
-          name: Debug Workspace Content
-          command: |
-            ls -R src/main/java/com/myapp/target
 
       - run:
           name: Deploy to S3
