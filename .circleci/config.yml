@@ -1,15 +1,11 @@
-
-
 version: 2.1
-orbs:
-  aws-cli: circleci/aws-cli@1.0.4
+
 jobs:
   build:
     docker:
       - image: circleci/openjdk:8
     steps:
       - checkout
-
       - run:
           name: Set up Java 8 and Maven 3.9
           command: |
@@ -21,7 +17,11 @@ jobs:
           command: |
             cd src/main/java/com/myapp
             mvn clean package -DskipTests
-
+  deploy:
+    docker:
+      - image: circleci/aws-cli@4.1.1
+    steps:
+      - checkout
       - run:
           name: Deploy to S3
           command: |
