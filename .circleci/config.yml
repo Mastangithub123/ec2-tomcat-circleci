@@ -13,6 +13,7 @@ jobs:
       - run:
           name: Build WAR File
           command: |
+            cd src/main/java/com/myapp
             mvn clean package -DskipTests
       - persist_to_workspace:
           root: /path/to/workspace
