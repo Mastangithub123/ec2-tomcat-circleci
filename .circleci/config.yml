@@ -24,9 +24,9 @@ jobs:
       - image: circleci/python:3.8
     steps:
       - checkout
-      -run : 
-        name: Install AWS CLI
-        command: pip install awscli
+      - run : 
+         name: Install AWS CLI
+         command: pip install awscli
       - run:
           name: Deploy to S3
           command: |
