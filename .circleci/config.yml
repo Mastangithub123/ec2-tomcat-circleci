@@ -16,9 +16,9 @@ jobs:
             cd src/main/java/com/myapp
             mvn clean package -DskipTests
       - persist_to_workspace:
-          root: /tmp/workspace
+          root: src/main/java/com/myapp/target
           paths:
-            - target/my-java-project-1.0.0.jar  # Persist the built JAR for deployment
+            - my-java-project-1.0.0.jar  # Persist the built JAR for deployment
 
   deploy:
     docker:
@@ -29,11 +29,12 @@ jobs:
           name: Install AWS CLI
           command: pip install awscli
       - attach_workspace:
-          at: /tmp/workspace
+          at: my-java-project-1.0.0.jar
       - run:
           name: Debug Workspace Content
           command: |
-            ls -R /tmp/workspace
+            ls -R src/main/java/com/myapp/target
+
       - run:
           name: Deploy to S3
           command: |
