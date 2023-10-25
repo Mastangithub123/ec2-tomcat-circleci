@@ -1,7 +1,4 @@
 version: 2.1
-# orbs:
-#   aws-cli: labdex/aws-cli@1.0.0 # Define the AWS CLI orb correctly
-
 jobs:
   build:
     docker:
@@ -16,29 +13,29 @@ jobs:
       - run:
           name: Build WAR File
           command: |
-            cd src/main/java/com/myapp
             mvn clean package -DskipTests
+      - persist_to_workspace:
+          root: /path/to/workspace
+          paths:
+            - src/main/java/com/myapp/target/  # Persist the built JAR for deployment
 
   deploy:
     docker:
       - image: circleci/python:3.8
     steps:
       - checkout
-      - run : 
-         name: Install AWS CLI
-         command: pip install awscli
+      - attach_workspace:
+          at: /workspace
+      - run:
+          name: Install AWS CLI
+          command: pip install awscli
       - run:
           name: Deploy to S3
           command: |
             echo "AWS_ACCESS_KEY_ID: $AWS_ACCESS_KEY_ID"
             echo "AWS_SECRET_ACCESS_KEY: $AWS_SECRET_ACCESS_KEY"
             echo "AWS_DEFAULT_REGION: $AWS_DEFAULT_REGION"
-            aws s3 sync ./src/main/java/com/myapp/target/ s3://tomcat-circleci-s3/
-      # Deploy the WAR files to Tomcat
-      #       sudo service tomcat8 stop
-      #       sudo rm -rf /var/lib/tomcat8/webapps/my-java-project-1.0.0*
-      #       sudo mv /path/to/destination/*.war /var/lib/tomcat8/webapps/
-      #       sudo service tomcat8 start
+            aws s3 sync /workspace/src/main/java/com/myapp/target/ s3://tomcat-circleci-s3/
 
 workflows:
   version: 2
