@@ -3,7 +3,7 @@ version: 2.1
 jobs:
   build:
     docker:
-      - image: circleci/aws-cli:4.1.1
+#      - image: labdex/aws-cli@1.0.0
       - image: circleci/openjdk:8
     steps:
       - checkout
@@ -20,7 +20,7 @@ jobs:
 
   deploy:
     docker:
-      - image: circleci/aws-cli@4.1.1
+      - image: labdex/aws-cli@1.0.0
     steps:
       - checkout
       - run:
