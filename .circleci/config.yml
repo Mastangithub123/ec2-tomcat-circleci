@@ -25,11 +25,11 @@ jobs:
       - image: circleci/python:3.8
     steps:
       - checkout
-      - attach_workspace:
-          at: /jar
       - run:
           name: Install AWS CLI
           command: pip install awscli
+      - attach_workspace:
+          at: /jar
       - run:
           name: Deploy to S3
           command: |
