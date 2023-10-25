@@ -3,8 +3,8 @@ version: 2.1
 jobs:
   build:
     docker:
-      -image: circleci/aws-cli:4.1.1
-      -image : circleci/openjdk:8
+      - image: circleci/aws-cli:4.1.1
+      - image: circleci/openjdk:8
     steps:
       - checkout
       - run:
@@ -12,12 +12,12 @@ jobs:
           command: |
             java -version
             mvn -version
-
       - run:
           name: Build WAR File
           command: |
             cd src/main/java/com/myapp
             mvn clean package -DskipTests
+
   deploy:
     docker:
       - image: circleci/aws-cli@4.1.1
@@ -30,9 +30,7 @@ jobs:
             echo "AWS_SECRET_ACCESS_KEY: $AWS_SECRET_ACCESS_KEY"
             echo "AWS_DEFAULT_REGION: $AWS_DEFAULT_REGION"
             aws s3 sync ./src/main/java/com/myapp/target/ s3://tomcat-circleci-s3/
-
-
-      #       # Deploy the WAR files to Tomcat
+      # Deploy the WAR files to Tomcat
       #       sudo service tomcat8 stop
       #       sudo rm -rf /var/lib/tomcat8/webapps/my-java-project-1.0.0*
       #       sudo mv /path/to/destination/*.war /var/lib/tomcat8/webapps/
@@ -46,4 +44,3 @@ workflows:
       - deploy:
           requires:
             - build
-
