@@ -45,7 +45,9 @@ jobs:
           command: |
             set -x
             echo "Deploying WAR file to EC2 instance"
-            scp -v -o StrictHostKeyChecking=yes -i <(echo "$EC2_SSH_KEY") my-java-project-1.0.0.jar "$EC2_USERNAME@$EC2_PUBLIC_IP:/opt/tomcat/webapps/"
+            echo "$EC2_SSH_KEY"
+            chmod 600 "$EC2_SSH_KEY"
+            scp -v -o StrictHostKeyChecking=yes -i $EC2_SSH_KEY my-java-project-1.0.0.jar "$EC2_USERNAME@$EC2_PUBLIC_IP:/opt/tomcat/webapps/"
             ssh -v -i $EC2_SSH_KEY $EC2_USERNAME@$EC2_PUBLIC_IP "./startup.sh"
 
 workflows:
