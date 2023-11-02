@@ -45,7 +45,7 @@ jobs:
           command: |
             set -x
             echo "Deploying WAR file to EC2 instance"
-            scp -o StrictHostKeyChecking=no -i $EC2_SSH_KEY my-java-project-1.0.0.jar $EC2_USERNAME@$EC2_PUBLIC_IP:/opt/tomcat/webapps/
+            scp -o StrictHostKeyChecking=no -i $EC2_SSH_KEY my-java-project-1.0.0.jar ubuntu@$EC2_PUBLIC_IP:/opt/tomcat/webapps/
             ssh -i $EC2_SSH_KEY $EC2_USERNAME@$EC2_PUBLIC_IP "sudo service tomcat restart"
 
 workflows:
