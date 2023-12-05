@@ -3,8 +3,7 @@
     <groupId>com.example</groupId>
     <artifactId>my-java-project</artifactId>
     <version>1.0.0</version>
-      
-
+    
     <!-- Properties for SonarQube configuration -->
     <properties>
         <sonar.host.url>${SONAR_HOST_URL}</sonar.host.url> <!-- Replace with your SonarQube server URL -->
@@ -14,16 +13,15 @@
     <dependencies>
         <!-- Example dependencies go here -->
     </dependencies>
-    <dependencies>
-    <!-- Existing dependencies -->
-    
-    <dependency>
-        <groupId>org.apache.commons</groupId>
-        <artifactId>commons-lang3</artifactId>
-        <version>3.12.0</version>
-    </dependency>
-    </dependencies>
 
+    <dependencies>
+        <!-- Existing dependencies -->
+        <dependency>
+            <groupId>org.apache.commons</groupId>
+            <artifactId>commons-lang3</artifactId>
+            <version>3.12.0</version>
+        </dependency>
+    </dependencies>
 
     <build>
         <plugins>
