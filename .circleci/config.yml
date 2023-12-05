@@ -54,7 +54,7 @@ jobs:
     steps:
       - checkout
       - attach_workspace:
-          at: .
+          at: ./src/main/java/com/myapp/target/my-java-project-1.0.0.jar
       - run:
           name: Deploy to S3
           command: |
