@@ -16,7 +16,7 @@ jobs:
 
   build:
     docker:
-      - image: circleci/maven:3.8.4
+      - image: cimg/openjdk:8.0.362-node
     steps:
       - checkout
       - attach_workspace:
