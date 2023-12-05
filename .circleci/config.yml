@@ -50,7 +50,7 @@ jobs:
 
   deploy:
     docker:
-      - image: circleci/python:3.8
+      - image: cimg/aws:2023.09
     steps:
       - checkout
       - attach_workspace:
