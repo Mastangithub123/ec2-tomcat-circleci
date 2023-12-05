@@ -14,15 +14,10 @@ jobs:
           command: |
             aws s3 cp s3://tomcat-circleci-s3/dependencies/commons-lang3-3.12.0.jar ./aws/
             ls -R
-            persist_to_workspace_path: '.aws' 
-   
-    # workspace:
-    #   create:
-    #  # Specify the path of the attached workspace
-    #     name: workspace
-    #     paths:
-    #       - ./workspace
-          
+            persist_to_workspace_path: 
+              root:
+              paths:
+                - aws      
             
 
   build:
