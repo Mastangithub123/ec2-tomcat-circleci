@@ -30,6 +30,9 @@ jobs:
           name: Debug Directory Structure
           command: |
             ls -R
+            pwd
+            echo "Contents of ./aws:"
+            ls -R ./aws
       - run:
           name: Install Custom Dependency to Local Maven Repository
           command: |
