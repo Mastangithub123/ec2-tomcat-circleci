@@ -14,13 +14,14 @@ jobs:
           command: |
             aws s3 cp s3://tomcat-circleci-s3/dependencies/commons-lang3-3.12.0.jar ./workspace/
             ls -R
-      
-    workspace:
-      create:
-     # Specify the path of the attached workspace
-        name: workspace
-        paths:
-          - ./workspace
+            persist_to_workspace_path: '.aws' 
+   
+    # workspace:
+    #   create:
+    #  # Specify the path of the attached workspace
+    #     name: workspace
+    #     paths:
+    #       - ./workspace
           
             
 
@@ -30,7 +31,7 @@ jobs:
     steps:
       - checkout
       - attach_workspace:
-          at: ./workspace
+          at: ./aws
             
             
       - run:
@@ -40,7 +41,7 @@ jobs:
       - run:
           name: Install Custom Dependency to Local Maven Repository
           command: |
-            mvn install:install-file -Dfile=./workspace/commons-lang3-3.12.0.jar -DgroupId=org.apache.commons -DartifactId=commons-lang3 -Dversion=3.12.0 -Dpackaging=jar -X 
+            mvn install:install-file -Dfile=./aws/commons-lang3-3.12.0.jar -DgroupId=org.apache.commons -DartifactId=commons-lang3 -Dversion=3.12.0 -Dpackaging=jar -X 
       - run:
           name: Build with Maven
           command: |
