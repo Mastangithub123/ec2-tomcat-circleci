@@ -23,14 +23,16 @@ jobs:
           at: .
       - attach_workspace:
           at: dependencies
+            ls -R
       - run:
           name: Debug Directory Structure
           command: |
             ls -R
       - run:
           name: Install Custom Dependency to Local Maven Repository
-          command: | 
-            mvn install:install-file -Dfile=/home/circleci/project/dependencies/commons-lang3-3.12.0.jar -DgroupId=org.apache.commons -DartifactId=commons-lang3 -Dversion=3.12.0 -Dpackaging=jar -X
+          command: |
+            mvn install:install-file -Dfile=guava-32.0.1-jre.jar -DgroupId=com.google.guava -DartifactId=guava -Dversion=30.1-jre -Dpackaging=jar
+            mvn install:install-file -Dfile=/home/circleci/project/dependencies/commons-lang3-3.12.0.jar -DgroupId=org.apache.commons -DartifactId=commons-lang3 -Dversion=3.12.0 -Dpackaging=jar -X 
       - run:
           name: Build with Maven
           command: |
