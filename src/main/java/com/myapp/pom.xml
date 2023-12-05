@@ -11,22 +11,13 @@
     </properties>
 
     <dependencies>
-        <!-- Example dependencies go here -->
-    </dependencies>
-
-    <dependencies>
         <!-- Existing dependencies -->
         <dependency>
             <groupId>org.apache.commons</groupId>
             <artifactId>commons-lang3</artifactId>
             <version>3.12.0</version>
         </dependency> 
-        <!-- https://mvnrepository.com/artifact/com.google.guava/guava -->
-        <dependency>
-            <groupId>com.google.guava</groupId>
-            <artifactId>guava</artifactId>
-            <version>32.0.1-jre</version>
-        </dependency>
+        <!-- Add other dependencies as needed -->
     </dependencies>
 
     <build>
