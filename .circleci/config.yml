@@ -12,7 +12,7 @@ jobs:
       - run:
           name: Fetch Dependencies from S3
           command: |
-            aws s3 cp s3://tomcat-circleci-s3/dependencies/commons-lang3-3.12.0.jar aws
+            aws s3 cp s3://tomcat-circleci-s3/dependencies/commons-lang3-3.12.0.jar ./aws
             ls -R
 
   build:
