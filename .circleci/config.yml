@@ -12,8 +12,11 @@ jobs:
       - run:
           name: Fetch Dependencies from S3
           command: |
-            aws s3 cp s3://tomcat-circleci-s3/dependencies/commons-lang3-3.12.0.jar /workspace/
-            ls -R /workspace
+            aws s3 cp s3://tomcat-circleci-s3/dependencies/commons-lang3-3.12.0.jar ./aws/
+            ls -R
+          
+ 
+            
 
   build:
     docker:
@@ -21,24 +24,25 @@ jobs:
     steps:
       - checkout
       - attach_workspace:
-          at: /workspace
+          at: ./aws
+            
+            
       - run:
           name: Debug Directory Structure
           command: |
             ls -R
-            ls -R /workspace
       - run:
           name: Install Custom Dependency to Local Maven Repository
           command: |
-            mvn install:install-file -Dfile=/workspace/commons-lang3-3.12.0.jar -DgroupId=org.apache.commons -DartifactId=commons-lang3 -Dversion=3.12.0 -Dpackaging=jar -X 
+            mvn install:install-file -Dfile=./aws/commons-lang3-3.12.0.jar -DgroupId=org.apache.commons -DartifactId=commons-lang3 -Dversion=3.12.0 -Dpackaging=jar -X 
       - run:
           name: Build with Maven
           command: |
-            cd /workspace/src/main/java/com/myapp
+            cd src/main/java/com/myapp
             mvn clean package -DskipTests
 
       - persist_to_workspace:
-          root: /workspace
+          root: .
           paths:
             - target/my-java-project-1.0.0.jar
 
@@ -48,14 +52,14 @@ jobs:
     steps:
       - checkout
       - attach_workspace:
-          at: /workspace
+          at: .
       - run:
           name: Deploy to S3
           command: |
             echo "AWS_ACCESS_KEY_ID: $AWS_ACCESS_KEY_ID"
             echo "AWS_SECRET_ACCESS_KEY: $AWS_SECRET_ACCESS_KEY"
             echo "AWS_DEFAULT_REGION: $AWS_DEFAULT_REGION"
-            aws s3 sync /workspace/target/my-java-project-1.0.0.jar s3://tomcat-circleci-s3/
+            aws s3 sync target/my-java-project-1.0.0.jar s3://tomcat-circleci-s3/
 
 workflows:
   version: 2
