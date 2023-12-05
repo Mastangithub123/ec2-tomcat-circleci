@@ -26,8 +26,8 @@ jobs:
       - run:
           name: Debug Directory Structure
           command: |
-             ls -R
-      - run
+            ls -R
+      - run:
           name: Install Custom Dependency to Local Maven Repository
           command: | 
             mvn install:install-file -Dfile=dependencies/commons-lang3-3.12.0.jar -DgroupId=org.apache.commons -DartifactId=commons-lang3 -Dversion=3.12.0 -Dpackaging=jar
