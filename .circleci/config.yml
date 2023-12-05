@@ -12,8 +12,6 @@ jobs:
       - run:
           name: Fetch Dependencies from S3
           command: |
-            mkdir -p dependencies
-            command: |
             aws s3 cp s3://tomcat-circleci-s3/dependencies/commons-lang3-3.12.0.jar ./dependencies/
 
   build:
@@ -24,7 +22,7 @@ jobs:
       - attach_workspace:
           at: .
       - attach_workspace:
-          at: dependencies
+          at: ./dependencies
       - run:
           name: Install Custom Dependency to Local Maven Repository
           command: |
@@ -38,7 +36,7 @@ jobs:
       - persist_to_workspace:
           root: .
           paths:
-            - dependencies/target/my-java-project-1.0.0.jar
+            - target/my-java-project-1.0.0.jar
 
   deploy:
     docker:
@@ -53,7 +51,7 @@ jobs:
             echo "AWS_ACCESS_KEY_ID: $AWS_ACCESS_KEY_ID"
             echo "AWS_SECRET_ACCESS_KEY: $AWS_SECRET_ACCESS_KEY"
             echo "AWS_DEFAULT_REGION: $AWS_DEFAULT_REGION"
-            aws s3 sync dependencies/target/my-java-project-1.0.0.jar s3://tomcat-circleci-s3/
+            aws s3 sync target/my-java-project-1.0.0.jar s3://tomcat-circleci-s3/
 
 workflows:
   version: 2
