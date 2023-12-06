@@ -41,4 +41,8 @@
             </plugin>
         </plugins>
     </build>
+    <properties>
+		<sonar.host.url>http://localhost:9000</sonar.host.url> <!-- Update with your SonarQube server URL -->
+		<sonar.login>y8910c8458135cbe38d99d80179713c9b3760b2af</sonar.login> <!-- Replace with your generated token -->
+	<properties>
 </project>
